@@ -28,3 +28,4 @@ Dictionary takes the approach of having a stand-alone service to manage the data
 
 The core webservice is built with Scala 2.12, using SBT as the build tool, and Travis for CI.
 
+
