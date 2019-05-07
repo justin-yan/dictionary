@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/justin-yan/dictionary.svg?branch=master)](https://travis-ci.org/justin-yan/rationals)[![codecov](https://codecov.io/gh/justin-yan/rationals/branch/master/graph/badge.svg)](https://codecov.io/gh/justin-yan/dictionary)
+
 # dictionary
 
 Dictionary makes it easy for organizations to collaboratively define their unique lingo and make it accessible to anyone who is confused about any terminology.
