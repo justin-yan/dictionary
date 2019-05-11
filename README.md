@@ -11,7 +11,7 @@ Dictionary makes it easy for organizations to collaboratively define their uniqu
 ### Developer
 
 - `sbt test`
-- `sbt clean assemble`
+- `sbt clean assembly`
 - `sbt run`
 
 ## Problem Domain
@@ -22,12 +22,21 @@ It can take months to finally absorb them all, and oftentimes you don't want to 
 
 Dictionary takes the approach of having a stand-alone service to manage the data, but to have plugins that integrate with *where the conversations happen*.  Wiki pages bitrot because they are out of the natural flow of conversation and people forget that the page exists, but if you are able to look terms up in Slack, right where someone says it, and you discover the capability naturally when someone else uses it - you now have enough visibility to have a fighting chance of keeping your terminology up to date.
 
-
-## Roadmap
-
-
 ## Design
 
 The core webservice is built with Scala 2.12, using SBT as the build tool, and Travis for CI.
 
+- Define a unicode term that can consist of multiple words
+- Look up a term
+    - Case insensitive matching
+    - Display synonyms
+    - Similar terms
 
+## Roadmap
+
+- Define synonyms
+- The ability to make a lookup public via message buttons.
+- Pretty formatting should be generally provided.
+- Support for contexts or multiple definitions.
+- Auto-links to the web UI.
+- Summary vs Full definitions.
