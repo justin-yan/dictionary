@@ -8,6 +8,14 @@ Dictionary makes it easy for organizations to collaboratively define their uniqu
 
 ### User
 
+Download the JAR and run as follows:
+
+```
+java -Dconfig.resource=application.conf -jar dictionaryapp.jar
+```
+
+Refer to the `reference.conf` file for the possible configuration of your `application.conf` file.
+
 ### Developer
 
 - `sbt test`
@@ -24,19 +32,22 @@ Dictionary takes the approach of having a stand-alone service to manage the data
 
 ## Design
 
-The core webservice is built with Scala 2.12, using SBT as the build tool, and Travis for CI.
+We're using Scala 2.12, SBT as the build tool, and Travis for CI.  The service itself is built in a ports-and-adapters style with akka-http.
 
-- Define a unicode term that can consist of multiple words
-- Look up a term
-    - Case insensitive matching
-    - Display synonyms
-    - Similar terms
+```
+initialism            => should have canonical (all caps) and display versions
+expansion * -> *      => this is where synonym and "Context" lives  (ots & 1ts & ots[non-work])
+term                  => should have canonical (lower cased, whitespace stripped, unstemmed) and display versions
+definition * <-> *    => this is where synonym and "Context"  (one time script & 1 time script & one time script[non-work])
+exposition            => contents should be semantically enriched
+```
 
 ## Roadmap
 
-- Define synonyms
-- The ability to make a lookup public via message buttons.
-- Pretty formatting should be generally provided.
-- Support for contexts or multiple definitions.
-- Auto-links to the web UI.
-- Summary vs Full definitions.
+- Fully integrated slack experience, pretty formatting, public lookups
+- Slick persistence layer
+- verification concerns (Testing, Observability)
+- A web UI
+- delivery concerns (Documentation, release, deploy)
+- Search, related terms, similar terms
+- Definition enrichment: auto-link to UI, person references, emoji rendering, summaries vs. full definitions
