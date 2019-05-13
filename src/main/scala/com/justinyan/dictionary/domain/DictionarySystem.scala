@@ -15,17 +15,17 @@ class DictionarySystem(dictRepo: DictionaryRepository) {
   // determine whether source is or isn't an initialism
   private def matchSource(source: String)
 
-  def setExpansion(initialism: String, term: String): Try[Expansion] = {
-    val ini = Initialism(initialism)
-    val term = Term(term)
-    dictRepo.insertInitialism(ini)
+  def handleCommand()
+
+  def setExpansion(initialism: Initialism, term: Term): Try[Expansion] = {
+    dictRepo.insertInitialism(initialism)
     dictRepo.insertTerm(term)
-    dictRepo.addExpansion(ini, term)
+    dictRepo.addExpansion(initialism, term)
     // What happens if it already exists?
 
   }
   def expandInitialism(initialism: String): Try[Expansion] = {
-    val ini = Initialism(initialism)
+    val ini = Initialism.from(initialism)
     dictRepo.getExpansion(ini)
   }
 

@@ -1,7 +1,7 @@
 package com.justinyan.dictionary.domain.types
 
-class Term(canonicalForm: String, displayForm: String)
+case class Term(canonicalForm: String, displayForm: String)
 
 object Term {
-  def apply(term: String) = new Term(term.toLowerCase.trim, term)
+  def from(rawTerm: String): Term = Term(rawTerm.split("\\s+").mkString(" ").toLowerCase.trim, rawTerm)
 }

@@ -1,7 +1,17 @@
 package com.justinyan.dictionary.domain.types
 
-case class Initialism(canonicalForm: String, displayForm: String)
+import scala.util.Try
+
+case class Initialism(canonicalForm: String)
 
 object Initialism {
-  def apply(initism: String) = new Initialism(initism.toLowerCase.trim, initism)
+  def from(rawIni: String): Try[Initialism] = {
+    Try(
+      rawIni match {
+        case s if rawIni.replaceAll("\\s", "") != rawIni => throw new IllegalArgumentException("Initialism must not have whitespace")
+        case s if rawIni.toUpperCase != rawIni => throw new IllegalArgumentException("Initialism must be uppercase")
+        case _ => Initialism(rawIni)
+      }
+    )
+  }
 }
