@@ -4,6 +4,7 @@ organization := "com.justinyan"
 scalaVersion := "2.12.8"
 
 libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.5" % "test"
+libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.11.0"
 libraryDependencies ++= {
   val akkaVersion = "2.5.22"
   val akkaHttp = "10.1.8"
