@@ -44,10 +44,23 @@ exposition            => contents should be semantically enriched
 
 ## Roadmap
 
-- Fully integrated slack experience, pretty formatting, public lookups
-- Slick persistence layer
+- Domain:
+    - create BDD spec
+    - add context support
+    - add admin commands
+- Slack port:
+    - create BDD spec
+    - integrate with new version of auth
+    - finish parsing logic and eliminate excess leak of domain types
+- Clean up dictionaryrepository port:
+    - Slick persistence layer
+    - Eliminate use of domain types in internal storage
 - verification concerns (Testing, Observability)
 - A web UI
 - delivery concerns (Documentation, release, deploy)
-- Search, related terms, similar terms
+- Slack port:
+    - pretty formatting 
+    - public lookups
+- Domain:
+    - Search, related terms, similar terms
 - Definition enrichment: auto-link to UI, person references, emoji rendering, summaries vs. full definitions
