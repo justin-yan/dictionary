@@ -44,10 +44,6 @@ exposition            => contents should be semantically enriched
 
 ## Roadmap
 
-- Domain:
-    - create BDD spec
-    - add context support
-    - add admin commands
 - Slack port:
     - create BDD spec
     - integrate with new version of auth

@@ -22,15 +22,15 @@ trait DictionaryRepository {
 //  def updateInitialism(initialism: Initialism): Try[Initialism]
 //  def deleteInitialism(initialism: Initialism): Try[Initialism]
 
-  def insertDefinition(term: Term, exposition: Exposition): Try[Definition]
-  def getDefinition(term: Term): Try[Definition]
+  def insertDefinition(context: String, term: Term, exposition: Exposition): Try[Definition]
+  def getDefinition(context: String, term: Term): Try[List[Definition]]
 //  def updateDefinition(definition: Definition): Try[Definition]
 //  def deleteDefinition(definition: Definition): Try[Definition]
 
   // TODO: Impl should set the values and then return the full expansion?
-  def addExpansion(initialism: Initialism, term: Term): Try[Expansion]
+  def addExpansion(context: String, initialism: Initialism, term: Term): Try[Expansion]
   // Impl should fetch the expansion based on the specified initialism
-  def getExpansion(initialism: Initialism): Try[Expansion]
+  def getExpansion(context: String, initialism: Initialism): Try[List[Expansion]]
 //  def updateExpansion(expansion: Expansion): Try[Expansion]
 //  def deleteExpansion(expansion: Expansion): Try[Expansion]
 }

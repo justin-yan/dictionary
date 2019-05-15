@@ -17,24 +17,24 @@ class InMemDictionaryRepository extends DictionaryRepository {
 
   def insertInitialism(initialism: Initialism): Try[Initialism] = Try(initialism)
 
-  def insertDefinition(term: Term, exposition: Exposition): Try[Definition] = {
+  def insertDefinition(context: String, term: Term, exposition: Exposition): Try[Definition] = {
     definitionStorage(term) = exposition
     Try(Definition(term, exposition, List(), ""))
   }
-  def getDefinition(term: Term): Try[Definition] = {
+  def getDefinition(context: String, term: Term): Try[List[Definition]] = {
     Try(definitionStorage.get(term) match {
-      case Some(e) => Definition(term, e, List(), "")
+      case Some(e) => List(Definition(term, e, List(), ""))
       case None => throw new IllegalArgumentException("Term cannot be found")
     })
   }
 
-  def addExpansion(initialism: Initialism, term: Term): Try[Expansion] = {
+  def addExpansion(context: String, initialism: Initialism, term: Term): Try[Expansion] = {
     expansionStorage(initialism) = term
     Try(Expansion(initialism, term, List(), ""))
   }
-  def getExpansion(initialism: Initialism): Try[Expansion] = {
+  def getExpansion(context: String, initialism: Initialism): Try[List[Expansion]] = {
     Try(expansionStorage.get(initialism) match {
-      case Some(t) => Expansion(initialism, t, List(), "")
+      case Some(t) => List(Expansion(initialism, t, List(), ""))
       case None => throw new IllegalArgumentException("Term cannot be found")
     })
   }

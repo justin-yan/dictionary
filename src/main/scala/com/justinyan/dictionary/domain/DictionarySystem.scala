@@ -7,47 +7,41 @@ import scala.util.Try
 
 class DictionarySystem(dictRepo: DictionaryRepository) {
 
-  // TODO: Improve handleCommand type-signature to accurately reflect the Try[Expansion | Definition] return value
-  //   Currently, ports responding to handled commands are forced to destructure an AnyRef
-  def handleUserCommands(command: Command): Try[AnyRef] = {
-    command match {
-      case LookupInitialism(context, initialism) => expandInitialism(initialism) // TODO: Use context
-      case LookupTerm(context, term) => defineTerm(term) // TODO: Use context
-      case DefineInitialism(context, initialism, term) => setExpansion(initialism, term) // TODO: Use context
-      case DefineTerm(context, term, exposition) => setDefinition(term, exposition) // TODO: Use context
-      case DefineAll(context, initialism, term, exposition) => ??? // TODO: Implement
-    }
-  }
-
   /** BLOCK: Application User Use Cases
     * These methods enable people to define and look-up their initialisms and terms
     */
-  private def setExpansion(initialism: Initialism, term: Term): Try[Expansion] = {
-    // TODO - handle this transactionally?
-    // TODO - what if any part of these legs already exist? Overwrite?
+  def setExpansion(context: String, initialism: Initialism, term: Term): Try[Expansion] = {
     dictRepo.insertInitialism(initialism)
     dictRepo.insertTerm(term)
-    dictRepo.addExpansion(initialism, term)
+    dictRepo.addExpansion(context, initialism, term)
   }
-  private def expandInitialism(initialism: Initialism): Try[Expansion] = {
-    dictRepo.getExpansion(initialism)
-  }
-
-  private def setDefinition(term: Term, exposition: Exposition): Try[Definition] = {
-    // TODO - handle this transactionally?
-    // TODO - what if any part of these legs already exist? Overwrite?
+  def setDefinition(context: String, term: Term, exposition: Exposition): Try[Definition] = {
     dictRepo.insertTerm(term)
     dictRepo.insertExposition(exposition)
-    dictRepo.insertDefinition(term, exposition)
+    dictRepo.insertDefinition(context, term, exposition)
   }
-  private def defineTerm(term: Term): Try[Definition] = {
-    dictRepo.getDefinition(term)
+  def setAll(context: String, initialism: Initialism, term: Term, exposition: Exposition) = {
+    // TODO: This should flatmap the Try and return the composite structure
+    setExpansion(context, initialism, term)
+    setDefinition(context, term, exposition)
+  }
+
+  def lookupInitialism(context: String, initialism: Initialism): Try[List[Expansion]] = {
+    // TODO: This should just always return the rich expansion if available
+    dictRepo.getExpansion(context, initialism)
+  }
+
+  def lookupTerm(context: String, term: Term): Try[List[Definition]] = {
+    dictRepo.getDefinition(context, term)
   }
 
   /** BLOCK: Admin Use Cases
     * These methods enable admins to curate the quality of a dictionary
     */
-
-  // DELETE methods
+  def deleteInitialism() = ???
+  def deleteTerm() = ???
+  def deleteExposition() = ???
+  def deleteExpansion() = ???
+  def deleteDefinition() = ???
 
 }
