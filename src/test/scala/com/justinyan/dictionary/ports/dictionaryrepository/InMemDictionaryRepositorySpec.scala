@@ -11,6 +11,8 @@ class InMemDictionaryRepositorySpec extends FlatSpec with Matchers with BeforeAn
   val TEST_EXPO_1 = "This is a test term"
   val TEST_TERM_2 = "truly test term"
   val TEST_EXPO_2 = "This is truly a test term"
+  val TEST_TERM_3 = "synonym test term"
+  val TEST_EXPO_3 = TEST_EXPO_2
   val TEST_CONTEXT_2 = "contest"
   val TEST_EXPO_2_CONTEXT_2 = "This is truly a test term with context"
 
@@ -19,6 +21,7 @@ class InMemDictionaryRepositorySpec extends FlatSpec with Matchers with BeforeAn
     dictionaryRepo.insertDefinition(Term.from(TEST_TERM_1), Exposition.from(TEST_EXPO_1))
     dictionaryRepo.insertDefinition(Term.from(TEST_TERM_2), Exposition.from(TEST_EXPO_2))
     dictionaryRepo.insertDefinition(Term.from(TEST_TERM_2), Exposition.from(TEST_EXPO_2_CONTEXT_2), TEST_CONTEXT_2)
+    dictionaryRepo.insertDefinition(Term.from(TEST_TERM_3), Exposition.from(TEST_EXPO_3))
   }
 
   // TERMs
@@ -43,5 +46,13 @@ class InMemDictionaryRepositorySpec extends FlatSpec with Matchers with BeforeAn
     assert(deflist.isEmpty)
     assert(dictionaryRepo.getDefinition(Term.from(NONEXISTENT_TERM)).isFailure)
   }
+
+  it should "FIND SYNONYMS" in {
+    var defn = dictionaryRepo.getDefinition(Term.from(TEST_TERM_3)).get
+    assert(defn.synonyms.nonEmpty)
+    defn = dictionaryRepo.getDefinition(Term.from(TEST_TERM_1)).get
+    assert(defn.synonyms.isEmpty)
+  }
+
 
 }

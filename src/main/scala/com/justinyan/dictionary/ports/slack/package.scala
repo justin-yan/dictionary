@@ -29,10 +29,17 @@ package object slack extends SprayJsonSupport with DefaultJsonProtocol {
                 case Failure(e) => SlashResponse.fromException(e)
               }
             case "lookup" =>
-              val double = parseLookup(text)
-              dictionarySystem.lookupTerm(double._2, double._1) match {
-                case Success(deflist) => SlashResponse("", deflist.map(Attachment.fromDefinition))
-                case Failure(e) => SlashResponse.fromException(e)
+              parseLookup(text) match {
+                case (null, term) =>
+                  dictionarySystem.lookupTerm(term) match {
+                    case Success(deflist) => SlashResponse("", deflist.map(Attachment.fromDefinition))
+                    case Failure(e) => SlashResponse.fromException(e)
+                  }
+                case (ctx, term) =>
+                  dictionarySystem.lookupTerm(term, ctx) match {
+                    case Success(defn) => SlashResponse("", List(Attachment.fromDefinition(defn)))
+                    case Failure(e) => SlashResponse.fromException(e)
+                  }
               }
             case _ => SlashResponse.fromException(new IllegalArgumentException("Invalid Command"))
           }

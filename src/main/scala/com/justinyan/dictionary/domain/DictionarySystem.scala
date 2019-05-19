@@ -15,8 +15,12 @@ class DictionarySystem(dictRepo: DictionaryRepository) {
     dictRepo.insertDefinition(term, exposition, context)
   }
 
-  def lookupTerm(term: Term, context: Context): Try[List[Definition]] = {
+  def lookupTerm(term: Term): Try[List[Definition]] = {
     dictRepo.getAllDefinitions(term)
+  }
+
+  def lookupTerm(term: Term, context: Context): Try[Definition] = {
+    dictRepo.getDefinition(term, context)
   }
 
   /** BLOCK: Admin Use Cases
