@@ -35,22 +35,20 @@ Dictionary takes the approach of having a stand-alone service to manage the data
 We're using Scala 2.12, SBT as the build tool, and Travis for CI.  The service itself is built in a ports-and-adapters style with akka-http.
 
 ```
-initialism            => should have canonical (all caps) and display versions
-expansion * -> *      => this is where synonym and "Context" lives  (ots & 1ts & ots[non-work])
 term                  => should have canonical (lower cased, whitespace stripped, unstemmed) and display versions
-definition * <-> *    => this is where synonym and "Context"  (one time script & 1 time script & one time script[non-work])
+definition * <-> *    => this is where synonym and "Context" live
 exposition            => contents should be semantically enriched
 ```
 
 ## Roadmap
 
 - Slack port:
-    - create BDD spec
+    - special syntax for declaring initialism with definition and generating synonym structure
     - integrate with new version of auth
-    - finish parsing logic and eliminate excess leak of domain types
 - Clean up dictionaryrepository port:
     - Slick persistence layer
     - Eliminate use of domain types in internal storage
+- Config updates to support config choice of repository
 - verification concerns (Testing, Observability)
 - A web UI
 - delivery concerns (Documentation, release, deploy)
@@ -59,4 +57,5 @@ exposition            => contents should be semantically enriched
     - public lookups
 - Domain:
     - Search, related terms, similar terms
+    - Suggestions on empty lookup
 - Definition enrichment: auto-link to UI, person references, emoji rendering, summaries vs. full definitions
