@@ -11,7 +11,7 @@ Dictionary makes it easy for organizations to collaboratively define their uniqu
 Download the JAR and run as follows:
 
 ```
-java -Dconfig.resource=application.conf -jar dictionaryapp.jar
+java -Dconfig.file=application.conf -jar dictionaryapp.jar
 ```
 
 Refer to the `reference.conf` file for the possible configuration of your `application.conf` file.
