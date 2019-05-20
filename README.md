@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/justin-yan/dictionary.svg?branch=master)](https://travis-ci.org/justin-yan/dictionary)[![codecov](https://codecov.io/gh/justin-yan/rationals/branch/master/graph/badge.svg)](https://codecov.io/gh/justin-yan/dictionary)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dictionary&metric=alert_status)](https://sonarcloud.io/dashboard?id=dictionary)
+[![Build Status](https://travis-ci.org/justin-yan/dictionary.svg?branch=master)](https://travis-ci.org/justin-yan/dictionary)[![codecov](https://codecov.io/gh/justin-yan/dictionary/branch/master/graph/badge.svg)](https://codecov.io/gh/justin-yan/dictionary)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dictionary&metric=alert_status)](https://sonarcloud.io/dashboard?id=dictionary)
 
 # dictionary
 
