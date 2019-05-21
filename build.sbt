@@ -3,6 +3,17 @@ version := "0.1.0"
 organization := "com.justinyan"
 scalaVersion := "2.12.8"
 
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-encoding", "UTF-8",
+  "-unchecked",
+  "-feature",
+  "-language:implicitConversions",
+  "-language:postfixOps",
+  "-Ywarn-dead-code",
+  "-Xfatal-warnings"
+)
+
 libraryDependencies += "org.scalatest" % "scalatest_2.12" % "3.0.5" % "test"
 libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.11.0"
 libraryDependencies ++= {
@@ -19,3 +30,9 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test"
   )
 }
+libraryDependencies ++= Seq(
+  "com.typesafe.slick" %% "slick" % "3.3.0",
+  "com.h2database"      % "h2"              % "1.4.185",
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.0"
+)

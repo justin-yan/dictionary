@@ -12,10 +12,11 @@ import akka.http.scaladsl.server.directives.{DebuggingDirectives, LogEntry, Logg
 import akka.stream.{ActorMaterializer, Materializer}
 import com.justinyan.dictionary.domain.DictionarySystem
 import com.justinyan.dictionary.ports.admin
-import com.justinyan.dictionary.ports.dictionaryrepository.InMemDictionaryRepository
+import com.justinyan.dictionary.ports.dictionaryrepository.JDBCDictionaryRepository
 import com.justinyan.dictionary.ports.slack
 
 import scala.concurrent.{ExecutionContext, Future}
+import slick.jdbc.H2Profile.api._
 
 object DictionaryApp extends App {
   implicit val system = ActorSystem("dictionary-server")
@@ -25,7 +26,8 @@ object DictionaryApp extends App {
   val config = DictionaryConfig.load()
 
   // Wiring up object references instead of creating a more complex actor topology
-  val entryRepository = new InMemDictionaryRepository()
+  val db = Database.forConfig("h2db")
+  val entryRepository = new JDBCDictionaryRepository(db)
   val dictionarySystem = new DictionarySystem(entryRepository)
   val slackPort = slack.route(dictionarySystem)
   val adminPort = admin.route(dictionarySystem)
