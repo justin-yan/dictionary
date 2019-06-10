@@ -17,15 +17,15 @@ object DictionaryApp extends App {
 
   val config = DictionaryConfig.load()
 
-  // Wiring up object references instead of creating a more complex actor topology
+  // Wiring up domain objects and ports
   val entryRepository = new InMemDictionaryRepository()
   val dictionarySystem = new DictionarySystem(entryRepository)
   val slackPort = slack.route(dictionarySystem)
   val adminPort = admin.route(dictionarySystem)
 
+  // Creating Execution context and wiring up infra domains as needed
   val akkaRoutes = slackPort ~ adminPort ~ (get & pathPrefix("health")) { complete("OK") }
   val loggedAkkaRoutes = Observability.requestLoggingWrapper(Logging.InfoLevel, akkaRoutes)
   val bindingFuture = Http().bindAndHandle(loggedAkkaRoutes, config.httphost, config.httpport)
   // SHUTDOWN: We're expecting connection draining to take place at the service orchestration layer with blue-green deploys, so no special logic here.
-
 }
