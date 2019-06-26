@@ -10,6 +10,8 @@ import com.justinyan.dictionary.infrastructure.Observability
 import com.justinyan.dictionary.ports.dictionaryrepository.InMemDictionaryRepository
 import com.justinyan.dictionary.ports.{admin, slack}
 
+import scalikejdbc.config._
+
 object DictionaryApp extends App {
   implicit val system = ActorSystem("dictionary-server")
   implicit val executionContext = system.dispatcher
@@ -18,6 +20,7 @@ object DictionaryApp extends App {
   val config = DictionaryConfig.load()
 
   // Wiring up domain objects and ports
+  DBs.setupAll()
   val entryRepository = new InMemDictionaryRepository()
   val dictionarySystem = new DictionarySystem(entryRepository)
   val slackPort = slack.route(dictionarySystem)

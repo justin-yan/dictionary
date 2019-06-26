@@ -19,3 +19,9 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test"
   )
 }
+libraryDependencies ++= Seq(
+  "org.scalikejdbc" %% "scalikejdbc"         % "3.3.5",
+  "org.scalikejdbc" %% "scalikejdbc-config"  % "3.3.5",
+  "com.h2database"  %  "h2"                  % "1.4.199",
+  "ch.qos.logback"  %  "logback-classic"     % "1.2.3"
+)
